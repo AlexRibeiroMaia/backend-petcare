@@ -6,12 +6,13 @@ import com.petcare.pet_care.domain.enums.AlertStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-
+@Repository
 public interface JpaAlertRepository extends JpaRepository<JpaAlertEntity, Long> {
     List<JpaAlertEntity> findByPet_IdOrderByDateAlertDesc(UUID petId);
 

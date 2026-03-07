@@ -1,0 +1,25 @@
+package com.petcare.pet_care.adapters.outbound.repositories;
+
+import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface JpaPetRepository extends JpaRepository<JpaPetEntity, UUID> {
+
+    List<JpaPetEntity> findByTutorId(UUID tutorId);
+    List<JpaPetEntity> findByEspecie(String especie);
+
+    Optional<JpaPetEntity> findByIdAndTutorId(UUID id, UUID tutorId);
+
+    @Query("select p from JpaPetEntity p where p.tutor.email = :email")
+    List<JpaPetEntity> findByTutorEmail(@Param("email") String email);
+
+    @Query("select count (p) from JpaPetEntity p where p.especie = :especie")
+    long countByEspecie(String especie);
+
+}

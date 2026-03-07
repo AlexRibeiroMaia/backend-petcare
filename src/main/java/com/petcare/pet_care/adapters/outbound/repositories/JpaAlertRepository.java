@@ -9,32 +9,42 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
-public interface JpaAlertRepository extends JpaRepository<JpaAlertEntity, String> {
-    List<JpaAlertEntity> findByPetIdOrderByDataHoraDesc(String petId);
+public interface JpaAlertRepository extends JpaRepository<JpaAlertEntity, Long> {
+    List<JpaAlertEntity> findByPet_IdOrderByDateAlertDesc(UUID petId);
 
-    List<JpaAlertEntity> findByStatus(AlertStatus status);
+    List<JpaAlertEntity> findByAlertStatus(AlertStatus status);
 
-    List<JpaAlertEntity> findByGravity(AlertGravity gravidade);
+    List<JpaAlertEntity> findByAlertGravity(AlertGravity gravity);
 
-    @Query("select a from JpaAlertEntity a where a.pet.id = :petId and a.alertStatus = 'PENDING'")
-    List<JpaAlertEntity> findPendingAlertByPetId(@Param("petId") String petId);
+    @Query("select a from JpaAlertEntity a where a.pet.id = :petId and a.alertStatus = :status")
+    List<JpaAlertEntity> findByPetIdAndAlertStatus(
+            @Param("petId") UUID petId,
+            @Param("status") AlertStatus status);
 
     @Query("select a from JpaAlertEntity a where a.dateAlert between :start and :end")
     List<JpaAlertEntity> findAlertPerTime(
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end);
 
-    @Query("SELECT COUNT(a) FROM JpaAlertEntity a WHERE a.alertStatus = 'PENDING'")
-    long countPendingAlert();
+    @Query("select count(a) from JpaAlertEntity a where a.alertStatus = :status")
+    long countByAlertStatus(@Param("status") AlertStatus status);
 
-    @Query("SELECT a FROM JpaAlertEntity a WHERE a.pet.tutor.id = :tutorId")
-    List<JpaAlertEntity> findAlertasByTutorId(@Param("tutorId") String tutorId);
+    @Query("select a from JpaAlertEntity a where a.pet.tutor.id = :tutorId")
+    List<JpaAlertEntity> findAlertasByTutorId(@Param("tutorId") UUID tutorId);
+
+    default List<JpaAlertEntity> findPendingAlertByPetId(UUID petId) {
+        return findByPetIdAndAlertStatus(petId, AlertStatus.PENDING);
+    }
+
+    default long countPendingAlert() {
+        return countByAlertStatus(AlertStatus.PENDING);
+    }
 
     // Method to active alerts (Pendings alerts is Active)
     default List<JpaAlertEntity> findAllAtivos() {
-        return findByStatus(AlertStatus.PENDING);
+        return findByAlertStatus(AlertStatus.PENDING);
     }
 }
-

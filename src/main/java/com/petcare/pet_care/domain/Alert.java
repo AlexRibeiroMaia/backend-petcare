@@ -4,7 +4,6 @@ import com.petcare.pet_care.domain.enums.AlertGravity;
 import com.petcare.pet_care.domain.enums.AlertStatus;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Alert {
     private Long id;

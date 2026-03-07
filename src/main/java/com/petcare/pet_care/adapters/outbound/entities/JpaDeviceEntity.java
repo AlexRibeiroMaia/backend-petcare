@@ -44,7 +44,7 @@ public class JpaDeviceEntity {
     @ToString.Exclude
     private JpaPetEntity pet;
 
-    @OneToMany(mappedBy = "dispositivo",
+    @OneToMany(mappedBy = "device",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default

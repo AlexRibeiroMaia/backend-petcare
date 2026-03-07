@@ -47,7 +47,7 @@ public class JpaVeterinarianEntity {
     @Column(name = "crmv", unique = true)
     private String crmv;
 
-    @OneToMany(mappedBy = "veterinario", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "veterinarian", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude

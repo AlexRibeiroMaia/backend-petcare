@@ -1,9 +1,5 @@
 package com.petcare.pet_care.adapters.outbound.entities;
 
-import com.petcare.pet_care.domain.Alert;
-import com.petcare.pet_care.domain.Device;
-import com.petcare.pet_care.domain.Monitoring;
-import com.petcare.pet_care.domain.Tutor;
 import com.petcare.pet_care.domain.enums.Sex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -71,12 +67,12 @@ public class JpaPetEntity {
             fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
-    private List<Device> devices = new ArrayList<>();
+    private List<JpaDeviceEntity> devices = new ArrayList<>();
 
     @OneToMany(mappedBy = "pet",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Monitoring> monitorings = new ArrayList<>();
+    private List<JpaMonitoringEntity> monitorings = new ArrayList<>();
 
     @OneToMany(mappedBy = "pet",
             cascade = CascadeType.ALL,

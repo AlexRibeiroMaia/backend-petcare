@@ -1,6 +1,10 @@
-package com.petcare.pet_care.domain;
+package com.petcare.pet_care.domain.pet;
 
+import com.petcare.pet_care.domain.tutor.Tutor;
+import com.petcare.pet_care.domain.alert.Alert;
+import com.petcare.pet_care.domain.device.Device;
 import com.petcare.pet_care.domain.enums.Sex;
+import com.petcare.pet_care.domain.monitoring.Monitoring;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

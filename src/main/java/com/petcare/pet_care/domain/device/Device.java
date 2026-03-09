@@ -1,6 +1,8 @@
-package com.petcare.pet_care.domain;
+package com.petcare.pet_care.domain.device;
 
 
+import com.petcare.pet_care.domain.monitoring.Monitoring;
+import com.petcare.pet_care.domain.pet.Pet;
 import com.petcare.pet_care.domain.enums.DeviceStatus;
 
 import java.time.LocalDateTime;

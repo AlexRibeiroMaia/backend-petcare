@@ -1,4 +1,6 @@
-package com.petcare.pet_care.domain;
+package com.petcare.pet_care.domain.tutor;
+
+import com.petcare.pet_care.domain.pet.Pet;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

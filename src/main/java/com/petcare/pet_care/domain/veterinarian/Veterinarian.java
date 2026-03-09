@@ -1,4 +1,6 @@
-package com.petcare.pet_care.domain;
+package com.petcare.pet_care.domain.veterinarian;
+
+import com.petcare.pet_care.domain.consultation.Consultation;
 
 import java.util.ArrayList;
 import java.util.List;

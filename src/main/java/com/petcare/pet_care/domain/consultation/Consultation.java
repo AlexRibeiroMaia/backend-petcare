@@ -1,4 +1,7 @@
-package com.petcare.pet_care.domain;
+package com.petcare.pet_care.domain.consultation;
+
+import com.petcare.pet_care.domain.pet.Pet;
+import com.petcare.pet_care.domain.veterinarian.Veterinarian;
 
 import java.time.LocalDate;
 

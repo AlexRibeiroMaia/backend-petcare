@@ -1,5 +1,6 @@
-package com.petcare.pet_care.domain;
+package com.petcare.pet_care.domain.alert;
 
+import com.petcare.pet_care.domain.pet.Pet;
 import com.petcare.pet_care.domain.enums.AlertGravity;
 import com.petcare.pet_care.domain.enums.AlertStatus;
 
@@ -33,6 +34,7 @@ public class Alert {
         this.alertStatus = alertStatus;
         this.pet = new Pet();
     }
+
 
     public Long getId() {
         return id;

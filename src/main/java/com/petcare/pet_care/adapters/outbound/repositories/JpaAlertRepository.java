@@ -48,4 +48,6 @@ public interface JpaAlertRepository extends JpaRepository<JpaAlertEntity, Long> 
     default List<JpaAlertEntity> findAllAtivos() {
         return findByAlertStatus(AlertStatus.PENDING);
     }
+
+    UUID id(Long id);
 }

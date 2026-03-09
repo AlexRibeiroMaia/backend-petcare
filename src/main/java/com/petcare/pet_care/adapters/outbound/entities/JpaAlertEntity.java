@@ -2,6 +2,7 @@ package com.petcare.pet_care.adapters.outbound.entities;
 
 
 
+import com.petcare.pet_care.domain.alert.Alert;
 import com.petcare.pet_care.domain.enums.AlertGravity;
 import com.petcare.pet_care.domain.enums.AlertStatus;
 import jakarta.persistence.*;
@@ -59,5 +60,14 @@ public class JpaAlertEntity {
         if (alertStatus == null) {
             alertStatus = AlertStatus.PENDING;
         }
+    }
+
+    public JpaAlertEntity(Alert alert) {
+        this.id = alert.getId();
+        this.typeAlert = alert.getTypeAlert();
+        this.description = alert.getDescription();
+        this.dateAlert = alert.getDateAlert();
+        this.alertGravity = alert.getAlertGravity();
+        this.alertStatus = alert.getAlertStatus();
     }
 }

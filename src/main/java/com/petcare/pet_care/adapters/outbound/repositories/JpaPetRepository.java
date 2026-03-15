@@ -18,7 +18,6 @@ public interface JpaPetRepository extends JpaRepository<JpaPetEntity, UUID> {
 
     Optional<JpaPetEntity> findByIdAndTutorId(UUID id, UUID tutorId);
 
-    @Query("select p from JpaPetEntity p where p.tutor.email = :email")
     List<JpaPetEntity> findByTutorEmail(@Param("email") String email);
 
     @Query("select count (p) from JpaPetEntity p where p.especie = :especie")

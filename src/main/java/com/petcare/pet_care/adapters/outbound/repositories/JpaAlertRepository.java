@@ -37,16 +37,16 @@ public interface JpaAlertRepository extends JpaRepository<JpaAlertEntity, Long> 
     List<JpaAlertEntity> findAlertasByTutorId(@Param("tutorId") UUID tutorId);
 
     default List<JpaAlertEntity> findPendingAlertByPetId(UUID petId) {
-        return findByPetIdAndAlertStatus(petId, AlertStatus.PENDING);
+        return findByPetIdAndAlertStatus(petId, AlertStatus.PENDENTE);
     }
 
     default long countPendingAlert() {
-        return countByAlertStatus(AlertStatus.PENDING);
+        return countByAlertStatus(AlertStatus.PENDENTE);
     }
 
     // Method to active alerts (Pendings alerts is Active)
     default List<JpaAlertEntity> findAllAtivos() {
-        return findByAlertStatus(AlertStatus.PENDING);
+        return findByAlertStatus(AlertStatus.PENDENTE);
     }
 
     UUID id(Long id);

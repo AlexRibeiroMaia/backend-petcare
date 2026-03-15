@@ -4,7 +4,7 @@ import com.petcare.pet_care.adapters.outbound.entities.JpaAlertEntity;
 import com.petcare.pet_care.domain.alert.Alert;
 import com.petcare.pet_care.domain.alert.AlertRepository;
 import com.petcare.pet_care.domain.enums.AlertStatus;
-import com.petcare.pet_care.utils.mappers.AlertMapper;
+import com.petcare.pet_care.adapters.outbound.persistence.alert.AlertMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

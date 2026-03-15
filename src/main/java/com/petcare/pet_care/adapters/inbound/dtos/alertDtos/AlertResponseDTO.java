@@ -1,4 +1,4 @@
-package com.petcare.pet_care.domain.alert;
+package com.petcare.pet_care.adapters.inbound.dtos.alertDtos;
 
 import com.petcare.pet_care.domain.enums.AlertGravity;
 import com.petcare.pet_care.domain.enums.AlertStatus;

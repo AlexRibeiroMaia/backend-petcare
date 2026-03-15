@@ -58,7 +58,7 @@ public class JpaAlertEntity {
             dateAlert = LocalDateTime.now();
         }
         if (alertStatus == null) {
-            alertStatus = AlertStatus.PENDING;
+            alertStatus = AlertStatus.PENDENTE;
         }
     }
 

@@ -1,4 +1,4 @@
-package com.petcare.pet_care.utils.mappers;
+package com.petcare.pet_care.adapters.outbound.persistence.alert;
 
 import com.petcare.pet_care.adapters.outbound.entities.JpaAlertEntity;
 import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
@@ -54,7 +54,7 @@ public class AlertMapper {
         if (entity.getTutor() != null) {
             Tutor tutor = new Tutor();
             tutor.setId(entity.getTutor().getId());
-            pet.setTutor(tutor);
+            pet.setTutor(tutor.getId());
         }
 
         return pet;

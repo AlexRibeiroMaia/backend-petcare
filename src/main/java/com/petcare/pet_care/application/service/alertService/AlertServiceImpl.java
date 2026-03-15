@@ -1,12 +1,9 @@
-package com.petcare.pet_care.application.service.alertservice;
+package com.petcare.pet_care.application.service.alertService;
 
 import com.petcare.pet_care.application.usecases.AlertUseCases;
 import com.petcare.pet_care.domain.alert.Alert;
 import com.petcare.pet_care.domain.alert.AlertRepository;
-import com.petcare.pet_care.domain.alert.AlertRequestDTO;
-import com.petcare.pet_care.domain.alert.AlertResponseDTO;
 import com.petcare.pet_care.domain.enums.AlertStatus;
-import com.petcare.pet_care.utils.mappers.AlertDtoMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,49 +17,45 @@ import java.util.UUID;
 public class AlertServiceImpl implements AlertUseCases {
 
     private final AlertRepository alertRepository;
-    private final AlertDtoMapper alertDtoMapper;
 
     @Override
     @Transactional
-    public AlertResponseDTO createAlert(AlertRequestDTO request) {
-        Alert alert = alertDtoMapper.toDomain(request);
-        alert.setDateAlert(LocalDateTime.now());
-
-        return alertDtoMapper.toResponse(alertRepository.save(alert));
+    public Alert createAlert(Alert alert) {
+        if (alert.getDateAlert() == null) {
+            alert.setDateAlert(LocalDateTime.now());
+        }
+        if (alert.getAlertStatus() == null) {
+            alert.setAlertStatus(AlertStatus.PENDENTE);
+        }
+        return alertRepository.save(alert);
     }
 
     @Override
     @Transactional
-    public AlertResponseDTO resolveAlert(Long id) {
+    public Alert resolveAlert(Long id) {
         Alert alert = alertRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Alert not found"));
 
-        alert.setAlertStatus(AlertStatus.RESOLVED);
-        return alertDtoMapper.toResponse(alertRepository.save(alert));
+        alert.setAlertStatus(AlertStatus.RESOLVIDO);
+        return alertRepository.save(alert);
     }
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
-    public List<AlertResponseDTO> findPendingAlertsByPetId(UUID petId) {
-        return alertRepository.findPendingAlertsByPetId(petId).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+    public List<Alert> findPendingAlertsByPetId(UUID petId) {
+        return alertRepository.findPendingAlertsByPetId(petId);
     }
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
-    public List<AlertResponseDTO> findAlertsByPetId(UUID petId) {
-        return alertRepository.findAlertsByPetId(petId).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+    public List<Alert> findAlertsByPetId(UUID petId) {
+        return alertRepository.findAlertsByPetId(petId);
     }
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
-    public List<AlertResponseDTO> findAlertsByTutorId(UUID tutorId) {
-        return alertRepository.findAlertsByTutorId(tutorId).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+    public List<Alert> findAlertsByTutorId(UUID tutorId) {
+        return alertRepository.findAlertsByTutorId(tutorId);
     }
 
     @Override
@@ -73,12 +66,12 @@ public class AlertServiceImpl implements AlertUseCases {
 
     @Override
     @Transactional(Transactional.TxType.SUPPORTS)
-    public List<AlertResponseDTO> findRecentAlerts() {
+    public List<Alert> findRecentAlerts() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime oneDayAgo = now.minusDays(1);
 
-        return alertRepository.findAlertsByPeriod(oneDayAgo, now).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+        return alertRepository.findAlertsByPeriod(oneDayAgo, now);
     }
+
+
 }

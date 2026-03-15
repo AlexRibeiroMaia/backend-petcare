@@ -1,24 +1,23 @@
 package com.petcare.pet_care.application.usecases;
 
-import com.petcare.pet_care.domain.alert.AlertRequestDTO;
-import com.petcare.pet_care.domain.alert.AlertResponseDTO;
+import com.petcare.pet_care.domain.alert.Alert;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AlertUseCases {
-    AlertResponseDTO createAlert(AlertRequestDTO alert);
+    Alert createAlert(Alert alert);
 
-    AlertResponseDTO resolveAlert(Long id);
+    Alert resolveAlert(Long id);
 
-    List<AlertResponseDTO> findPendingAlertsByPetId(UUID petId);
+    List<Alert> findPendingAlertsByPetId(UUID petId);
 
-    List<AlertResponseDTO> findAlertsByPetId(UUID petId);
+    List<Alert> findAlertsByPetId(UUID petId);
 
-    List<AlertResponseDTO> findAlertsByTutorId(UUID tutorId);
+    List<Alert> findAlertsByTutorId(UUID tutorId);
 
     long countPendingAlerts();
 
-    List<AlertResponseDTO> findRecentAlerts();
+    List<Alert> findRecentAlerts();
 
 }

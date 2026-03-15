@@ -1,4 +1,4 @@
-package com.petcare.pet_care.utils.mappers;
+package com.petcare.pet_care.adapters.inbound.rest.alert;
 
 import com.petcare.pet_care.domain.alert.Alert;
 import com.petcare.pet_care.adapters.inbound.dtos.alertDtos.AlertRequestDTO;
@@ -15,7 +15,7 @@ public class AlertDtoMapper {
         alert.setTypeAlert(request.getTypeAlert());
         alert.setDescription(request.getDescription());
         alert.setAlertGravity(request.getAlertGravity());
-        alert.setAlertStatus(AlertStatus.PENDING);
+        alert.setAlertStatus(AlertStatus.PENDENTE);
 
         Pet pet = new Pet();
         pet.setId(request.getPetId());

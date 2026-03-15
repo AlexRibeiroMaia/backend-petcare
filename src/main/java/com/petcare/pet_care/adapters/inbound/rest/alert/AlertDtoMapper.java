@@ -1,8 +1,8 @@
 package com.petcare.pet_care.utils.mappers;
 
 import com.petcare.pet_care.domain.alert.Alert;
-import com.petcare.pet_care.domain.alert.AlertRequestDTO;
-import com.petcare.pet_care.domain.alert.AlertResponseDTO;
+import com.petcare.pet_care.adapters.inbound.dtos.alertDtos.AlertRequestDTO;
+import com.petcare.pet_care.adapters.inbound.dtos.alertDtos.AlertResponseDTO;
 import com.petcare.pet_care.domain.enums.AlertStatus;
 import com.petcare.pet_care.domain.pet.Pet;
 import org.springframework.stereotype.Component;

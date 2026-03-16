@@ -22,7 +22,8 @@ public class PetDtoMapper {
         pet.setBirthDate(dto.getBirthDate());
         pet.setWeight(dto.getWeight());
         pet.setSex(dto.getSex());
-        pet.setTutor(dto.getTutor());
+        // setTutor(UUID) — o domínio recebe apenas o UUID do tutor
+        pet.setTutor(dto.getTutorId());
         pet.setCadasterDate(LocalDateTime.now());
 
         return pet;
@@ -42,7 +43,7 @@ public class PetDtoMapper {
                 .weight(pet.getWeight())
                 .sex(pet.getSex())
                 .cadasterDate(pet.getCadasterDate())
-                .tutor(pet.getTutor().getId())
+                .tutorId(pet.getTutor())
                 .build();
     }
 }

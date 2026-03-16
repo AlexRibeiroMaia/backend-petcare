@@ -22,7 +22,7 @@ public class Pet {
     private Double weight;
     private Sex sex;
     private LocalDateTime cadasterDate;
-    private Tutor tutor;
+    private UUID tutor;
     private List<Device> devices = new ArrayList<>();
     private List<Monitoring> monitorings = new ArrayList<>();
     private List<Alert> alerts = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Pet {
 
     }
 
-    public Pet(UUID id, String name, String especies, String race, String birthDate, Double weight, Sex sex, LocalDateTime CadasterDate, Tutor tutor, List<Device> devices, List<Monitoring> monitorings, List<Alert> alerts) {
+    public Pet(UUID id, String name, String especies, String race, String birthDate, Double weight, Sex sex, LocalDateTime CadasterDate, UUID tutor, List<Device> devices, List<Monitoring> monitorings, List<Alert> alerts) {
         this.id = id;
         this.name = name;
         this.especie = especies;
@@ -78,7 +78,7 @@ public class Pet {
         return cadasterDate;
     }
 
-    public Tutor getTutor() {
+    public UUID getTutor() {
         return tutor;
     }
 
@@ -126,7 +126,7 @@ public class Pet {
         this.cadasterDate = cadasterDate;
     }
 
-    public void setTutor(Tutor tutor) {
+    public void setTutor(UUID tutor) {
         this.tutor = tutor;
     }
 

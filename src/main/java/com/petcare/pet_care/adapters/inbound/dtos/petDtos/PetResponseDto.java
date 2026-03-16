@@ -24,5 +24,5 @@ public class PetResponseDto {
     private Double weight;
     private Sex sex;
     private LocalDateTime cadasterDate;
-    private UUID tutor;
+    private UUID tutorId;
 }

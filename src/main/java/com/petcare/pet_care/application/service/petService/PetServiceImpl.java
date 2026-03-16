@@ -81,7 +81,7 @@ public class PetServiceImpl implements PetUseCases {
         existing.setBirthDate(dto.getBirthDate());
         existing.setWeight(dto.getWeight());
         existing.setSex(dto.getSex());
-        existing.setTutor(dto.getTutor());
+        existing.setTutor(dto.getTutorId());
 
         Pet updated = petRepository.save(existing);
         return petDtoMapper.toResponseDto(updated);

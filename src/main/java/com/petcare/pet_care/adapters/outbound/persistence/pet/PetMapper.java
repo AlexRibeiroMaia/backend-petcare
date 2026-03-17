@@ -1,5 +1,6 @@
 package com.petcare.pet_care.adapters.outbound.persistence.pet;
 
+import com.petcare.pet_care.adapters.inbound.rest.pet.PetDtoMapper;
 import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
 import com.petcare.pet_care.domain.pet.Pet;
 import lombok.RequiredArgsConstructor;

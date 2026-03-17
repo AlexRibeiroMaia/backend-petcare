@@ -4,6 +4,8 @@ import com.petcare.pet_care.domain.enums.Sex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,37 +25,30 @@ import java.util.UUID;
 public class JpaPetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_pet")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
     @NotBlank(message = "Nome é obrigatorio")
     @Size(max = 100, message = "Nome deve ter no maximo 100 caracteres")
-    @Column(name = "nome")
     private String name;
 
     @NotBlank(message = "Espécie é obrigatoria")
-    @Column(name = "especie")
     private String especie;
 
     @NotBlank(message = "Raça é obrigatoria")
-    @Column(name = "raca")
     private String race;
 
     @NotNull(message = "Data de nascimento é obrigatoria")
     @Past(message = "Data de nascimento deve ser no passado")
-    @Column(name = "data_nascimento")
-    private LocalDate birthDate;
+    private LocalDate birthdate;
 
     @NotNull(message = "Peso é obrigatorio")
     @DecimalMin(value = "0.1", message = "Peso deve ser maior que zero")//para validar o peso
-    @Column(name = "peso")
     private Double weight;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sexo")
     private Sex sex;
 
-    @Column(name = "data_cadastro")
     private LocalDateTime cadasterDate;
 
 
@@ -83,6 +78,9 @@ public class JpaPetEntity {
 
     @PrePersist //faz o metodo ser executado automaticamente antes de uma entidade ser persistida no banco de dados
     protected void onCreate() {
+        if (this.id == null) {
+            this.id = UUID.randomUUID();
+        }
         cadasterDate = LocalDateTime.now();
     }
 

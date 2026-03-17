@@ -19,11 +19,15 @@ public class PetMapper {
         pet.setName(entity.getName());
         pet.setEspecie(entity.getEspecie());
         pet.setRace(entity.getRace());
-        pet.setBirthDate(entity.getBirthDate());
+        pet.setBirthDate(entity.getBirthdate());
         pet.setWeight(entity.getWeight());
         pet.setSex(entity.getSex());
         pet.setCadasterDate(entity.getCadasterDate());
 
+
+        if (entity.getTutor() != null) {
+            pet.setTutor(entity.getTutor().getId());
+        }
 
         return pet;
     }
@@ -38,7 +42,7 @@ public class PetMapper {
         entity.setName(pet.getName());
         entity.setEspecie(pet.getEspecie());
         entity.setRace(pet.getRace());
-        entity.setBirthDate(pet.getBirthDate());
+        entity.setBirthdate(pet.getBirthDate());
         entity.setWeight(pet.getWeight());
         entity.setSex(pet.getSex());
         entity.setCadasterDate(pet.getCadasterDate());

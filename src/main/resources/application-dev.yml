@@ -2,10 +2,12 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
-
+      ddl-auto: update
+  flyway:
+    enabled: false
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.tool.schema: debug
 

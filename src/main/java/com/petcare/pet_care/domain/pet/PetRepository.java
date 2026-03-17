@@ -17,7 +17,5 @@ public interface PetRepository {
 
     Optional<Pet> findByIdAndTutorId(UUID id, UUID tutorId);
 
-    long countByEspecie(String especie);
-
     void delete(Pet pet);
 }

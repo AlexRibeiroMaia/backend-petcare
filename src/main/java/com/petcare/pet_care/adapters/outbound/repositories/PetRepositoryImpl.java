@@ -1,5 +1,6 @@
 package com.petcare.pet_care.adapters.outbound.repositories;
 
+import com.petcare.pet_care.adapters.inbound.rest.pet.PetDtoMapper;
 import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
 import com.petcare.pet_care.adapters.outbound.persistence.pet.PetMapper;
 import com.petcare.pet_care.domain.pet.Pet;
@@ -34,7 +35,8 @@ public class PetRepositoryImpl implements PetRepository {
 
     @Override
     public List<Pet> findAll() {
-        return jpaPetRepository.findAll().stream()
+        List<JpaPetEntity> entities = jpaPetRepository.findAll();
+        return entities.stream()
                 .map(petMapper::toDomain)
                 .toList();
     }
@@ -60,12 +62,8 @@ public class PetRepositoryImpl implements PetRepository {
     }
 
     @Override
-    public long countByEspecie(String especie) {
-        return jpaPetRepository.countByEspecie(especie);
-    }
-
-    @Override
     public void delete(Pet pet) {
-        jpaPetRepository.delete(petMapper.toJpaEntity(pet));
+        jpaPetRepository.findById(pet.getId())
+                .ifPresent(jpaPetRepository::delete);
     }
 }

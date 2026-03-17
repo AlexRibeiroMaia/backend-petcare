@@ -2,6 +2,7 @@ package com.petcare.pet_care.application.usecases;
 
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetResponseDto;
+import com.petcare.pet_care.domain.pet.Pet;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,8 +19,6 @@ public interface PetUseCases {
     List<PetResponseDto> findByEspecie(String especie);
 
     PetResponseDto findByIdAndTutorId(UUID id, UUID tutorId);
-
-    long countByEspecie(String especie);
 
     PetResponseDto update(UUID id, PetRequestDto dto);
 

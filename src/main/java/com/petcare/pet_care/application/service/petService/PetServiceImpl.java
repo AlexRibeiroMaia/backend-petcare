@@ -66,11 +66,6 @@ public class PetServiceImpl implements PetUseCases {
     }
 
     @Override
-    public long countByEspecie(String especie) {
-        return petRepository.countByEspecie(especie);
-    }
-
-    @Override
     public PetResponseDto update(UUID id, PetRequestDto dto) {
         Pet existing = petRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pet não encontrado com id: " + id));

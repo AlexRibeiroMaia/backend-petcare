@@ -39,4 +39,39 @@ public class PetController {
         return ResponseEntity.ok(pets);
     }
 
+    @GetMapping("/tutor/{tutorId}")
+    public ResponseEntity<List<PetResponseDto>> findByTutorId(@PathVariable UUID tutorId) {
+        List<PetResponseDto> pets = petUseCases.findByTutorId(tutorId);
+        return ResponseEntity.ok(pets);
+    }
+
+    @GetMapping("/especie/{especie}")
+    public ResponseEntity<List<PetResponseDto>> findByEspecie(@PathVariable String especie) {
+        List<PetResponseDto> pets = petUseCases.findByEspecie(especie);
+        return ResponseEntity.ok(pets);
+    }
+
+    @GetMapping("/{id}/tutor/{tutorId}")
+    public ResponseEntity<PetResponseDto> findByIdAndTutorId(
+            @PathVariable UUID id,
+            @PathVariable UUID tutorId) {
+
+        PetResponseDto pet = petUseCases.findByIdAndTutorId(id, tutorId);
+        return ResponseEntity.ok(pet);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PetResponseDto> update(
+            @PathVariable UUID id,
+            @RequestBody @Valid PetRequestDto dto) {
+
+        PetResponseDto updatedPet = petUseCases.update(id, dto);
+        return ResponseEntity.ok(updatedPet);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        petUseCases.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

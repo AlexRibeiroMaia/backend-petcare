@@ -1,5 +1,6 @@
 package com.petcare.pet_care.adapters.outbound.persistence.pet;
 
+import com.petcare.pet_care.adapters.inbound.rest.pet.PetDtoMapper;
 import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
 import com.petcare.pet_care.domain.pet.Pet;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +15,23 @@ public class PetMapper {
             return null;
         }
 
+
+
+        System.out.println("TESTE NO PET MAPPER ==>" + entity.getId());
         Pet pet = new Pet();
         pet.setId(entity.getId());
         pet.setName(entity.getName());
         pet.setEspecie(entity.getEspecie());
         pet.setRace(entity.getRace());
-        pet.setBirthDate(entity.getBirthDate());
+        pet.setBirthDate(entity.getBirthdate());
         pet.setWeight(entity.getWeight());
         pet.setSex(entity.getSex());
         pet.setCadasterDate(entity.getCadasterDate());
 
+
+        if (entity.getTutor() != null) {
+            pet.setTutor(entity.getTutor().getId());
+        }
 
         return pet;
     }
@@ -38,7 +46,7 @@ public class PetMapper {
         entity.setName(pet.getName());
         entity.setEspecie(pet.getEspecie());
         entity.setRace(pet.getRace());
-        entity.setBirthDate(pet.getBirthDate());
+        entity.setBirthdate(pet.getBirthDate());
         entity.setWeight(pet.getWeight());
         entity.setSex(pet.getSex());
         entity.setCadasterDate(pet.getCadasterDate());

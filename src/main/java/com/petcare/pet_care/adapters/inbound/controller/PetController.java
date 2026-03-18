@@ -3,7 +3,6 @@ package com.petcare.pet_care.adapters.inbound.controller;
 
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetResponseDto;
-import com.petcare.pet_care.adapters.inbound.rest.pet.PetDtoMapper;
 import com.petcare.pet_care.application.usecases.PetUseCases;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.UUID;
 public class PetController {
 
     private final PetUseCases petUseCases;
-    private final PetDtoMapper petDtoMapper;
 
     @PostMapping("/create")
     public ResponseEntity<PetResponseDto> create(@RequestBody @Valid PetRequestDto dto) {
@@ -29,6 +27,9 @@ public class PetController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PetResponseDto> findById(@PathVariable UUID id) {
+        if (petUseCases.findById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
         PetResponseDto response = petUseCases.findById(id);
         return ResponseEntity.ok(response);
     }

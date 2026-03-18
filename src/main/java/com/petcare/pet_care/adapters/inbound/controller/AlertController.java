@@ -2,11 +2,7 @@ package com.petcare.pet_care.adapters.inbound.controller;
 
 import com.petcare.pet_care.adapters.inbound.dtos.alertDtos.AlertRequestDTO;
 import com.petcare.pet_care.adapters.inbound.dtos.alertDtos.AlertResponseDTO;
-import com.petcare.pet_care.adapters.inbound.rest.alert.AlertDtoMapper;
-import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
-import com.petcare.pet_care.adapters.outbound.repositories.JpaPetRepository;
 import com.petcare.pet_care.application.usecases.AlertUseCases;
-import com.petcare.pet_care.domain.alert.Alert;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -29,42 +27,43 @@ import java.util.UUID;
 public class AlertController {
 
     private final AlertUseCases alertUseCases;
-    private final AlertDtoMapper alertDtoMapper;
 
     @PostMapping
     public ResponseEntity<AlertResponseDTO> create(@Valid @RequestBody AlertRequestDTO request) {
-        Alert alert = alertDtoMapper.toDomain(request);
-        Alert created = alertUseCases.createAlert(alert);
-        return ResponseEntity.status(HttpStatus.CREATED).body(alertDtoMapper.toResponse(created));
+        AlertResponseDTO created = alertUseCases.createAlert(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PatchMapping("/{id}/resolve")
     public ResponseEntity<AlertResponseDTO> resolve(@PathVariable Long id) {
-        Alert resolved = alertUseCases.resolveAlert(id);
-        return ResponseEntity.ok(alertDtoMapper.toResponse(resolved));
+        AlertResponseDTO resolved = alertUseCases.resolveAlert(id);
+        return ResponseEntity.ok(resolved);
     }
 
     @GetMapping("/pets/{petId}")
-    public ResponseEntity<List<AlertResponseDTO>> findByPet(@PathVariable UUID petId) {
-        List<AlertResponseDTO> response = alertUseCases.findAlertsByPetId(petId).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+    public ResponseEntity<?> findByPet(@PathVariable UUID petId) {
+        List<AlertResponseDTO> response = alertUseCases.findAlertsByPetId(petId);
+        if (response.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "No pet with ID =>> " + petId));
+        }
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/pets/{petId}/pending")
     public ResponseEntity<List<AlertResponseDTO>> findPendingByPet(@PathVariable UUID petId) {
-        List<AlertResponseDTO> response = alertUseCases.findPendingAlertsByPetId(petId).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+        List<AlertResponseDTO> response = alertUseCases.findPendingAlertsByPetId(petId);
+        if (response.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+        }
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/tutors/{tutorId}")
-    public ResponseEntity<List<AlertResponseDTO>> findByTutor(@PathVariable UUID tutorId) {
-        List<AlertResponseDTO> response = alertUseCases.findAlertsByTutorId(tutorId).stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+    public ResponseEntity<?> findByTutor(@PathVariable UUID tutorId) {
+        List<AlertResponseDTO> response = alertUseCases.findAlertsByTutorId(tutorId);
+        if (response.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "No tutor with ID =>> " + tutorId));
+        }
         return ResponseEntity.ok(response);
     }
 
@@ -75,12 +74,9 @@ public class AlertController {
 
     @GetMapping("/recent")
     public ResponseEntity<List<AlertResponseDTO>> recent(@RequestParam(defaultValue = "1") int days) {
-        List<AlertResponseDTO> response = alertUseCases.findRecentAlerts().stream()
-                .map(alertDtoMapper::toResponse)
-                .toList();
+        List<AlertResponseDTO> response = alertUseCases.findRecentAlerts();
         return ResponseEntity.ok(response);
     }
 }
-
 
 

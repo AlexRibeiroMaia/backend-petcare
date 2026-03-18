@@ -12,6 +12,7 @@ public class Tutor {
     private UUID id;
     private String name;
     private String email;
+    private String cpf;
     private String phone;
     private String address;
     private LocalDateTime cadasterDate;
@@ -20,10 +21,11 @@ public class Tutor {
     public Tutor() {
 
     }
-    public Tutor(UUID id, String name, String email, String phone, String address, LocalDateTime cadasterDate) {
+    public Tutor(UUID id, String name, String email, String cpf, String phone, String address, LocalDateTime cadasterDate) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.cpf = cpf;
         this.phone = phone;
         this.address = address;
         this.cadasterDate = cadasterDate;
@@ -52,6 +54,14 @@ public class Tutor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getPhone() {

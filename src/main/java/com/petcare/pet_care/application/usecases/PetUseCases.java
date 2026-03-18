@@ -2,7 +2,6 @@ package com.petcare.pet_care.application.usecases;
 
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetResponseDto;
-import com.petcare.pet_care.domain.pet.Pet;
 
 import java.util.List;
 import java.util.UUID;

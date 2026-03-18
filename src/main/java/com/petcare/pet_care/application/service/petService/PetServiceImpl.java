@@ -3,6 +3,7 @@ package com.petcare.pet_care.application.service.petService;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetResponseDto;
 import com.petcare.pet_care.adapters.inbound.rest.pet.PetDtoMapper;
+import com.petcare.pet_care.application.exceptions.NotFoundException;
 import com.petcare.pet_care.application.usecases.PetUseCases;
 import com.petcare.pet_care.domain.pet.Pet;
 import com.petcare.pet_care.domain.pet.PetRepository;
@@ -29,7 +30,7 @@ public class PetServiceImpl implements PetUseCases {
     @Override
     public PetResponseDto findById(UUID id) {
         Pet pet = petRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pet não encontrado com id: " + id));
+                .orElseThrow(NotFoundException::new);
         return petDtoMapper.toResponseDto(pet);
     }
 
@@ -60,15 +61,14 @@ public class PetServiceImpl implements PetUseCases {
     @Override
     public PetResponseDto findByIdAndTutorId(UUID id, UUID tutorId) {
         Pet pet = petRepository.findByIdAndTutorId(id, tutorId)
-                .orElseThrow(() -> new RuntimeException(
-                        "Pet não encontrado com id: " + id + " para o tutor: " + tutorId));
+                .orElseThrow(NotFoundException::new);
         return petDtoMapper.toResponseDto(pet);
     }
 
     @Override
     public PetResponseDto update(UUID id, PetRequestDto dto) {
         Pet existing = petRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pet não encontrado com id: " + id));
+                .orElseThrow(NotFoundException::new);
 
         existing.setName(dto.getName());
         existing.setEspecie(dto.getEspecie());
@@ -85,7 +85,7 @@ public class PetServiceImpl implements PetUseCases {
     @Override
     public void delete(UUID id) {
         Pet pet = petRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pet não encontrado com id: " + id));
+                .orElseThrow(NotFoundException::new);
         petRepository.delete(pet);
     }
 }

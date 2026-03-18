@@ -38,6 +38,11 @@ public class JpaTutorEntity {
     @Column(unique = true)
     private String email;
 
+    @NotBlank(message = "CPF é obrigatório")
+    @Size(min = 11, max = 14, message = "CPF deve ter entre 11 e 14 caracteres")
+    @Column(unique = true, length = 14)
+    private String cpf;
+
     @NotBlank(message = "Telefone é obrigatório")
     @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$", message = "Telefone deve estar no formato (XX) XXXXX-XXXX")
     @Column(unique = true)

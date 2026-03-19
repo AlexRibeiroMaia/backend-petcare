@@ -3,10 +3,8 @@ package com.petcare.pet_care.adapters.outbound.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +42,8 @@ public class JpaTutorEntity {
     private String cpf;
 
     @NotBlank(message = "Telefone é obrigatório")
-    @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$", message = "Telefone deve estar no formato (XX) XXXXX-XXXX")
-    @Column(unique = true)
+    @Size(max = 11, message = "Telefone deve ter no máximo 11 dígitos")
+    @Column(unique = true, length = 11)
     private String phone;
 
     @NotBlank(message = "Endereço é obrigatorio")

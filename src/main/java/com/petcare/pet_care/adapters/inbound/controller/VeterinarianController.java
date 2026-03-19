@@ -6,14 +6,7 @@ import com.petcare.pet_care.application.usecases.VeterinarianUseCases;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,25 +30,25 @@ public class VeterinarianController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/crmv/{crmv}")
+    @GetMapping("/{crmv}")
     public ResponseEntity<VeterinarianResponseDto> findByCrmv(@PathVariable String crmv) {
         VeterinarianResponseDto response = veterinarianUseCases.findByCrmv(crmv);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<VeterinarianResponseDto> findByEmail(@PathVariable String email) {
         VeterinarianResponseDto response = veterinarianUseCases.findByEmail(email);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/specialty/{specialty}")
-    public ResponseEntity<List<VeterinarianResponseDto>> findBySpecialty(@PathVariable String specialty) {
+    @GetMapping("/{specialty}")
+    public ResponseEntity<List<VeterinarianResponseDto>> findBySpecialty(@RequestParam String specialty) {
         List<VeterinarianResponseDto> response = veterinarianUseCases.findBySpecialty(specialty);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/{name}")
     public ResponseEntity<List<VeterinarianResponseDto>> findByName(@PathVariable String name) {
         List<VeterinarianResponseDto> response = veterinarianUseCases.findByName(name);
         return ResponseEntity.ok(response);

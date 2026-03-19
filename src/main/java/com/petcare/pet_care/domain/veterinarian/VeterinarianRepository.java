@@ -13,6 +13,8 @@ public interface VeterinarianRepository {
 
     Optional<Veterinarian> findByEmail(String email);
 
+    Optional<Veterinarian> findByPhone(String phone);
+
     List<Veterinarian> findBySpecialty(String specialty);
 
     List<Veterinarian> findByName(String name);

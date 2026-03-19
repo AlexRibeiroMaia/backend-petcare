@@ -3,6 +3,7 @@ package com.petcare.pet_care.application.service.veterinarianService;
 import com.petcare.pet_care.adapters.inbound.dtos.veterinarianDtos.VeterinarianRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.veterinarianDtos.VeterinarianResponseDto;
 import com.petcare.pet_care.adapters.inbound.rest.veterinarian.VeterinarianDtoMapper;
+import com.petcare.pet_care.application.exceptions.ConflictException;
 import com.petcare.pet_care.application.exceptions.NotFoundException;
 import com.petcare.pet_care.application.usecases.VeterinarianUseCases;
 import com.petcare.pet_care.domain.veterinarian.Veterinarian;
@@ -22,6 +23,27 @@ public class VeterinarianServiceImpl implements VeterinarianUseCases {
 
     @Override
     public VeterinarianResponseDto create(VeterinarianRequestDto dto) {
+        veterinarianRepository.findByCrmv(dto.getCrmv())
+                .ifPresent(
+                        v  -> {
+                            throw new ConflictException("Veterinarian with CRMV " + dto.getCrmv() + " already exists");
+                        }
+                        );
+
+        veterinarianRepository.findByEmail(dto.getEmail())
+                .ifPresent(
+                        v -> {
+                            throw new ConflictException("Veterinarian with email " + dto.getEmail() + " already exists");
+                        }
+                );
+
+        veterinarianRepository.findByPhone(dto.getPhone())
+                .ifPresent(
+                        v -> {
+                            throw new ConflictException("Veterinarian with phone " + dto.getPhone() + " already exists");
+                        }
+                );
+
         Veterinarian veterinarian = veterinarianDtoMapper.toDomain(dto);
         Veterinarian saved = veterinarianRepository.save(veterinarian);
         return veterinarianDtoMapper.toResponseDto(saved);
@@ -37,7 +59,7 @@ public class VeterinarianServiceImpl implements VeterinarianUseCases {
     @Override
     public VeterinarianResponseDto findByCrmv(String crmv) {
         Veterinarian veterinarian = veterinarianRepository.findByCrmv(crmv)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("CRMV not found, verify and try again"));
         return veterinarianDtoMapper.toResponseDto(veterinarian);
     }
 

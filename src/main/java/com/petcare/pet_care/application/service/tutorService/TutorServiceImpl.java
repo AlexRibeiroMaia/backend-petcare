@@ -3,6 +3,7 @@ package com.petcare.pet_care.application.service.tutorService;
 import com.petcare.pet_care.adapters.inbound.dtos.tutorDtos.TutorRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.tutorDtos.TutorResponseDto;
 import com.petcare.pet_care.adapters.inbound.rest.tutor.TutorDtoMapper;
+import com.petcare.pet_care.application.exceptions.ConflictException;
 import com.petcare.pet_care.application.exceptions.NotFoundException;
 import com.petcare.pet_care.application.usecases.TutorUseCases;
 import com.petcare.pet_care.domain.tutor.Tutor;
@@ -22,6 +23,27 @@ public class TutorServiceImpl implements TutorUseCases {
 
     @Override
     public TutorResponseDto create(TutorRequestDto dto) {
+        tutorRepository.findByEmail(dto.getEmail())
+                .ifPresent(
+                        t -> {
+                            throw new ConflictException("Tutor with email " + dto.getEmail() + " already exists");
+                        }
+                );
+
+        tutorRepository.findByCpf(dto.getCpf())
+                .ifPresent(
+                        t -> {
+                            throw new ConflictException("Tutor with CPF " + dto.getCpf() + " already exists");
+                        }
+                );
+
+        tutorRepository.findByPhone(dto.getPhone())
+                .ifPresent(
+                        t -> {
+                            throw new ConflictException("Tutor with phone " + dto.getPhone() + " already exists");
+                        }
+                );
+
         Tutor tutor = tutorDtoMapper.toDomain(dto);
         Tutor saved = tutorRepository.save(tutor);
         return tutorDtoMapper.toResponseDto(saved);

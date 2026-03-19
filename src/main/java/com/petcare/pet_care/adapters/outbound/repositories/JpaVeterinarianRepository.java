@@ -16,6 +16,8 @@ public interface JpaVeterinarianRepository extends JpaRepository<JpaVeterinarian
 
     Optional<JpaVeterinarianEntity> findByEmail(String email);
 
+    Optional<JpaVeterinarianEntity> findByPhone(String phone);
+
     List<JpaVeterinarianEntity> findBySpecialty(String especialidade);
 
     @Query("SELECT v FROM JpaVeterinarianEntity v WHERE LOWER(v.name) LIKE LOWER(CONCAT('%', :nome, '%'))")

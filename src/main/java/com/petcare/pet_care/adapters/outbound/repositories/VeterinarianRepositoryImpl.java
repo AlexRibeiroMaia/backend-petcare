@@ -43,6 +43,12 @@ public class VeterinarianRepositoryImpl implements VeterinarianRepository {
     }
 
     @Override
+    public Optional<Veterinarian> findByPhone(String phone) {
+        return jpaVeterinarianRepository.findByPhone(phone)
+                .map(veterinarianMapper::toDomain);
+    }
+
+    @Override
     public List<Veterinarian> findBySpecialty(String specialty) {
         return jpaVeterinarianRepository.findBySpecialty(specialty).stream()
                 .map(veterinarianMapper::toDomain)

@@ -2,7 +2,6 @@ package com.petcare.pet_care.adapters.inbound.dtos.tutorDtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +27,7 @@ public class TutorRequestDto {
     private String cpf;
 
     @NotBlank(message = "Telefone é obrigatório")
-    @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$", message = "Telefone deve estar no formato (XX) XXXXX-XXXX")
+    @Size(max = 11, message = "Telefone deve ter no máximo 11 dígitos")
     private String phone;
 
     @NotBlank(message = "Endereço é obrigatório")

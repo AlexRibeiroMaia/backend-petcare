@@ -97,6 +97,11 @@ public class ConsultationServiceImpl implements ConsultationUseCases {
         Consultation existing = consultationRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
 
+        if (dto.getDiagnosis() == null || dto.getDiagnosis().isBlank()
+                || dto.getPrescription() == null || dto.getPrescription().isBlank()) {
+            throw new BadRequestException("Diagnosis and prescription are required");
+        }
+
         if (existing.getVeterinarian() == null || existing.getVeterinarian().getId() == null
                 || !existing.getVeterinarian().getId().equals(user.getVeterinarianId())) {
             throw new ForbiddenException("Access denied");

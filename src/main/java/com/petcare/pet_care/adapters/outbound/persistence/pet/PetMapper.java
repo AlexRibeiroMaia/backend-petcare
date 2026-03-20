@@ -1,7 +1,7 @@
 package com.petcare.pet_care.adapters.outbound.persistence.pet;
 
-import com.petcare.pet_care.adapters.inbound.rest.pet.PetDtoMapper;
 import com.petcare.pet_care.adapters.outbound.entities.JpaPetEntity;
+import com.petcare.pet_care.adapters.outbound.repositories.JpaTutorRepository;
 import com.petcare.pet_care.domain.pet.Pet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PetMapper {
+
+    private final JpaTutorRepository jpaTutorRepository;
 
     public Pet toDomain(JpaPetEntity entity) {
         if (entity == null) {
@@ -48,8 +50,9 @@ public class PetMapper {
         entity.setSex(pet.getSex());
         entity.setCadasterDate(pet.getCadasterDate());
 
-        // Tutor e coleções também podem ser mapeados aqui
-        // quando houver necessidade de carregar as associações.
+        if (pet.getTutor() != null) {
+            entity.setTutor(jpaTutorRepository.getReferenceById(pet.getTutor()));
+        }
 
         return entity;
     }

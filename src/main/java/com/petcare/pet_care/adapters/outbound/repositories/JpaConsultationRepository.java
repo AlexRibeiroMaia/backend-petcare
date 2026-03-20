@@ -28,6 +28,11 @@ public interface JpaConsultationRepository extends JpaRepository<JpaConsultation
             @Param("veterinarioId") UUID veterinarioId,
             @Param("dataAtual") LocalDate dataAtual);
 
+    @Query("select count(c) > 0 from JpaConsultationEntity c where c.veterinarian.id = :veterinarioId and c.pet.tutor.id = :tutorId")
+    boolean existsByVeterinarianIdAndTutorId(
+            @Param("veterinarioId") UUID veterinarioId,
+            @Param("tutorId") UUID tutorId);
+
     default List<JpaConsultationEntity> findAllAtivos() {
         return findConsultasPorPeriodo(LocalDate.now(), LocalDate.now().plusYears(1));
     }

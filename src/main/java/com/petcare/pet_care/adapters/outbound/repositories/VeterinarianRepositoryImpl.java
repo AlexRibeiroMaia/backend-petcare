@@ -16,11 +16,20 @@ import java.util.UUID;
 public class VeterinarianRepositoryImpl implements VeterinarianRepository {
 
     private final JpaVeterinarianRepository jpaVeterinarianRepository;
+    private final JpaUserRepository jpaUserRepository;
     private final VeterinarianMapper veterinarianMapper;
 
     @Override
     public Veterinarian save(Veterinarian veterinarian) {
-        JpaVeterinarianEntity saved = jpaVeterinarianRepository.save(veterinarianMapper.toJpaEntity(veterinarian));
+        JpaVeterinarianEntity entity = veterinarianMapper.toJpaEntity(veterinarian);
+        if (entity != null) {
+            jpaUserRepository.findByEmail(entity.getEmail())
+                    .ifPresentOrElse(entity::setUser,
+                            () -> {
+                                throw new IllegalStateException("User not found for email: " + entity.getEmail());
+                            });
+        }
+        JpaVeterinarianEntity saved = jpaVeterinarianRepository.save(entity);
         return veterinarianMapper.toDomain(saved);
     }
 

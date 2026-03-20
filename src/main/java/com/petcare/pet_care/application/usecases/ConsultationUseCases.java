@@ -1,5 +1,6 @@
 package com.petcare.pet_care.application.usecases;
 
+import com.petcare.pet_care.adapters.inbound.dtos.consultationDtos.ConsultationMedicalUpdateDto;
 import com.petcare.pet_care.adapters.inbound.dtos.consultationDtos.ConsultationRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.consultationDtos.ConsultationResponseDto;
 
@@ -15,7 +16,7 @@ public interface ConsultationUseCases {
 
     List<ConsultationResponseDto> findUpcomingByVeterinarianId(UUID veterinarianId);
 
-    ConsultationResponseDto update(Long id, ConsultationRequestDto dto);
+    ConsultationResponseDto update(Long id, ConsultationMedicalUpdateDto dto);
 
     void delete(Long id);
 }

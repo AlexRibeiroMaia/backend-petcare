@@ -1,5 +1,6 @@
 package com.petcare.pet_care.adapters.inbound.controller;
 
+import com.petcare.pet_care.adapters.inbound.dtos.consultationDtos.ConsultationMedicalUpdateDto;
 import com.petcare.pet_care.adapters.inbound.dtos.consultationDtos.ConsultationRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.consultationDtos.ConsultationResponseDto;
 import com.petcare.pet_care.application.usecases.ConsultationUseCases;
@@ -55,7 +56,7 @@ public class ConsultationController {
     @PutMapping("/update/{id}")
     public ResponseEntity<ConsultationResponseDto> update(
             @PathVariable Long id,
-            @RequestBody @Valid ConsultationRequestDto dto) {
+            @RequestBody @Valid ConsultationMedicalUpdateDto dto) {
 
         ConsultationResponseDto updated = consultationUseCases.update(id, dto);
         return ResponseEntity.ok(updated);

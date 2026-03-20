@@ -13,5 +13,7 @@ public interface ConsultationRepository {
 
     List<Consultation> findUpcomingByVeterinarianId(UUID veterinarianId);
 
+    boolean existsByVeterinarianIdAndTutorId(UUID veterinarianId, UUID tutorId);
+
     void delete(Consultation consultation);
 }

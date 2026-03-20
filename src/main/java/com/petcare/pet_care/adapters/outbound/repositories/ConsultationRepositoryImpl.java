@@ -53,6 +53,12 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
 
     @Override
     @Transactional
+    public boolean existsByVeterinarianIdAndTutorId(UUID veterinarianId, UUID tutorId) {
+        return jpaConsultationRepository.existsByVeterinarianIdAndTutorId(veterinarianId, tutorId);
+    }
+
+    @Override
+    @Transactional
     public void delete(Consultation consultation) {
         jpaConsultationRepository.findById(consultation.getId())
                 .ifPresent(jpaConsultationRepository::delete);

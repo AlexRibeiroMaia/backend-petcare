@@ -25,6 +25,11 @@ public class JpaVeterinarianEntity {
     @Column(name = "id_veterinario" )
     private UUID id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @ToString.Exclude
+    private JpaUserEntity user;
+
     @NotBlank(message = "Nome é obrigatorio")
     @Column(name = "nome")
     private String name;

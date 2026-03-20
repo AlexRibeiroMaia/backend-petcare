@@ -2,7 +2,6 @@ package com.petcare.pet_care.adapters.inbound.dtos.petDtos;
 
 
 import com.petcare.pet_care.domain.enums.Sex;
-import com.petcare.pet_care.domain.tutor.Tutor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,6 @@ public class PetRequestDto {
     @NotNull(message = "Sexo é obrigatório")
     private Sex sex;
 
-    @NotNull(message = "ID do tutor é obrigatório")
     private UUID tutorId;
 
 }

@@ -26,6 +26,11 @@ public class JpaTutorEntity {
     @Column
     public UUID id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @ToString.Exclude
+    private JpaUserEntity user;
+
     @NotBlank(message = "Nome é obrigatório")
     @Size(max = 100, message = "Nome deve ter no máximo 100 caracteres")
     @Column

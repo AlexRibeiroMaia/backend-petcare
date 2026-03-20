@@ -16,11 +16,20 @@ import java.util.UUID;
 public class TutorRepositoryImpl implements TutorRepository {
 
     private final JpaTutorRepository jpaTutorRepository;
+    private final JpaUserRepository jpaUserRepository;
     private final TutorMapper tutorMapper;
 
     @Override
     public Tutor save(Tutor tutor) {
-        JpaTutorEntity saved = jpaTutorRepository.save(tutorMapper.toJpaEntity(tutor));
+        JpaTutorEntity entity = tutorMapper.toJpaEntity(tutor);
+        if (entity != null) {
+            jpaUserRepository.findByEmail(entity.getEmail())
+                    .ifPresentOrElse(entity::setUser,
+                            () -> {
+                                throw new IllegalStateException("User not found for email: " + entity.getEmail());
+                            });
+        }
+        JpaTutorEntity saved = jpaTutorRepository.save(entity);
         return tutorMapper.toDomain(saved);
     }
 

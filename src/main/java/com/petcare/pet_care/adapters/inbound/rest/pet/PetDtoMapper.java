@@ -22,8 +22,6 @@ public class PetDtoMapper {
         pet.setBirthDate(dto.getBirthDate());
         pet.setWeight(dto.getWeight());
         pet.setSex(dto.getSex());
-        // setTutor(UUID) — o domínio recebe apenas o UUID do tutor
-        pet.setTutor(dto.getTutorId());
         pet.setCadasterDate(LocalDateTime.now());
 
         return pet;

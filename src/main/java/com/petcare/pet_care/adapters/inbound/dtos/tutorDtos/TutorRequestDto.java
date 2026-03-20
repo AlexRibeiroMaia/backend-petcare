@@ -33,4 +33,6 @@ public class TutorRequestDto {
     @NotBlank(message = "Endereço é obrigatório")
     @Size(max = 200, message = "Endereço deve ter no maximo 200 caracteres")
     private String address;
+
+    private String password;
 }

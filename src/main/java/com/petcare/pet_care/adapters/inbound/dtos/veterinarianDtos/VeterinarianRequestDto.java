@@ -32,4 +32,6 @@ public class VeterinarianRequestDto {
     @NotBlank(message = "CRMV é obrigatorio")
     @CrmvNotation
     private String crmv;
+
+    private String password;
 }

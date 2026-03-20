@@ -11,8 +11,6 @@ public interface ConsultationRepository {
 
     List<Consultation> findAll();
 
-    List<Consultation> findByTutorId(UUID tutorId);
-
     List<Consultation> findUpcomingByVeterinarianId(UUID veterinarianId);
 
     void delete(Consultation consultation);

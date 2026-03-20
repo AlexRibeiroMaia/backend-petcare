@@ -44,13 +44,6 @@ public class ConsultationServiceImpl implements ConsultationUseCases {
     }
 
     @Override
-    public List<ConsultationResponseDto> findByTutorId(UUID tutorId) {
-        return consultationRepository.findByTutorId(tutorId).stream()
-                .map(consultationDtoMapper::toResponseDto)
-                .toList();
-    }
-
-    @Override
     public List<ConsultationResponseDto> findUpcomingByVeterinarianId(UUID veterinarianId) {
         return consultationRepository.findUpcomingByVeterinarianId(veterinarianId).stream()
                 .map(consultationDtoMapper::toResponseDto)

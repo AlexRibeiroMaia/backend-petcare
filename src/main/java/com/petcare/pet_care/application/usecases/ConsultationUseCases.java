@@ -13,8 +13,6 @@ public interface ConsultationUseCases {
 
     List<ConsultationResponseDto> findAll();
 
-    List<ConsultationResponseDto> findByTutorId(UUID tutorId);
-
     List<ConsultationResponseDto> findUpcomingByVeterinarianId(UUID veterinarianId);
 
     ConsultationResponseDto update(Long id, ConsultationRequestDto dto);

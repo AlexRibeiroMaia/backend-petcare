@@ -43,12 +43,6 @@ public class ConsultationController {
         return ResponseEntity.ok(consultations);
     }
 
-    @GetMapping("/tutor/{tutorId}")
-    public ResponseEntity<List<ConsultationResponseDto>> findByTutorId(@PathVariable UUID tutorId) {
-        List<ConsultationResponseDto> consultations = consultationUseCases.findByTutorId(tutorId);
-        return ResponseEntity.ok(consultations);
-    }
-
     @GetMapping("/veterinarian/{veterinarianId}/upcoming")
     public ResponseEntity<List<ConsultationResponseDto>> findUpcomingByVeterinarianId(
             @PathVariable UUID veterinarianId) {

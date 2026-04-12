@@ -1,4 +1,18 @@
 services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: petcare-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_DEFAULT_VHOST: PetCareMQ
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
   postgres:
     image: postgres:16
     container_name: petcare-postgres
@@ -20,6 +34,8 @@ services:
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: petcare-pgadmin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     restart: unless-stopped
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
@@ -31,5 +47,6 @@ services:
         condition: service_healthy
 
 volumes:
+  rabbitmq_data:
   petcare_pgdata:
   pgadmin_data:

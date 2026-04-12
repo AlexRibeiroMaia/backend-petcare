@@ -1,4 +1,10 @@
 spring:
+  rabbitmq:
+    virtual-host: PetCareMQ
+    username: admin
+    password: admin
+    port: 5672
+
   application:
     name: pet-care
   config:
@@ -23,3 +29,20 @@ security:
   jwt:
     secret: ${JWT_SECRET}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:60}
+
+app:
+  cors:
+    allowed-origin-patterns: ${APP_CORS_ALLOWED_ORIGIN_PATTERNS:http://localhost:*,http://127.0.0.1:*,http://192.168.*:*,http://10.*:*,http://172.*:*}
+  email:
+    from: ${SES_FROM_EMAIL}
+  aws:
+    ses-endpoint: ${AWS_SES_ENDPOINT:https://email.${AWS_REGION}.amazonaws.com}
+  messaging:
+    consultation-created:
+      queue: ${RABBITMQ_CONSULTATION_CREATED_QUEUE:emailSender}
+      exchange: ${RABBITMQ_CONSULTATION_CREATED_EXCHANGE:emailSender-ex}
+      routing-key: ${RABBITMQ_CONSULTATION_CREATED_ROUTING_KEY:emailSender-rk}
+      dlq:
+        queue: ${RABBITMQ_CONSULTATION_CREATED_DLQ_QUEUE:emailSender.dlq}
+        exchange: ${RABBITMQ_CONSULTATION_CREATED_DLQ_EXCHANGE:emailSender-dlx}
+        routing-key: ${RABBITMQ_CONSULTATION_CREATED_DLQ_ROUTING_KEY:emailSender-dlq-rk}

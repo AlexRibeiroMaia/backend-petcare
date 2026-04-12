@@ -4,10 +4,12 @@ import com.petcare.pet_care.adapters.inbound.dtos.authDtos.AuthRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.authDtos.AuthResponseDto;
 import com.petcare.pet_care.application.exceptions.UnauthorizedException;
 import com.petcare.pet_care.application.usecases.AuthUseCases;
+import com.petcare.pet_care.domain.tutor.Tutor;
 import com.petcare.pet_care.domain.tutor.TutorRepository;
 import com.petcare.pet_care.domain.user.User;
 import com.petcare.pet_care.domain.user.UserRepository;
 import com.petcare.pet_care.domain.user.UserRole;
+import com.petcare.pet_care.domain.veterinarian.Veterinarian;
 import com.petcare.pet_care.domain.veterinarian.VeterinarianRepository;
 import com.petcare.pet_care.infra.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +44,13 @@ public class AuthServiceImpl implements AuthUseCases {
 
         if (user.getRole() == UserRole.TUTOR) {
             tutorId = tutorRepository.findByEmail(user.getEmail())
-                    .map(t -> t.getId())
+                    .map(Tutor::getId)
                     .orElseThrow(() -> new UnauthorizedException("Invalid credentials"));
         }
 
         if (user.getRole() == UserRole.VETERINARIAN) {
             veterinarianId = veterinarianRepository.findByEmail(user.getEmail())
-                    .map(v -> v.getId())
+                    .map(Veterinarian::getId)
                     .orElseThrow(() -> new UnauthorizedException("Invalid credentials"));
         }
 

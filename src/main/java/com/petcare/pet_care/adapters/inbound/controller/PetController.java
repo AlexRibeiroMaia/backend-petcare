@@ -4,6 +4,7 @@ package com.petcare.pet_care.adapters.inbound.controller;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetRequestDto;
 import com.petcare.pet_care.adapters.inbound.dtos.petDtos.PetResponseDto;
 import com.petcare.pet_care.application.usecases.PetUseCases;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

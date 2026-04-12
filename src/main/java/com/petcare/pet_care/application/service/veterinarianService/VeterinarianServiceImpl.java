@@ -121,7 +121,7 @@ public class VeterinarianServiceImpl implements VeterinarianUseCases {
 
     @Override
     public List<VeterinarianResponseDto> findAll() {
-        securityUtil.requireRole(UserRole.ADMIN);
+        securityUtil.requireRole(UserRole.TUTOR, UserRole.ADMIN);
         return veterinarianRepository.findAll().stream()
                 .map(veterinarianDtoMapper::toResponseDto)
                 .toList();

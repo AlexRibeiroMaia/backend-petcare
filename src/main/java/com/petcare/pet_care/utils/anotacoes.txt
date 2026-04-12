@@ -1,0 +1,18 @@
+modelos de dominio rico - estudar sobre
+
+como o spring lida com modelo de dominio rico e anemico
+
+
+ideias para feign/mensageria:
+
+**pensar num consumer e producer como gateway**
+
+    (mensageria)
+    usar fila para enviar email com codigo de redefinição de senha (bloquear botao de enviar novo codigo em X tempo)
+
+    (mensageria)
+    envio de email para avisar que a consulta foi marcada (colocar a consulta em uma fila)
+
+
+    (feign)
+    usar o feign para fazer a chamada da api de envio de emails

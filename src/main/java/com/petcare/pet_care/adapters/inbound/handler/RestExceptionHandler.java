@@ -43,4 +43,6 @@ public class RestExceptionHandler {
         ErrorResponse body = new ErrorResponse(HttpStatus.FORBIDDEN.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(body);
     }
+
+    // handler para buscar sessao geral
 }

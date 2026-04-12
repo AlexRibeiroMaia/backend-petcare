@@ -22,22 +22,4 @@ public interface AlertRepository {
 
     List<Alert> findAlertsByPeriod(LocalDateTime start, LocalDateTime end);
 
-    List<Alert> findByPet_IdOrderByDateAlertDesc(UUID petId);
-
-    List<Alert> findByAlertStatus (AlertStatus alertStatus);
-
-    List<Alert> findByPetIdAndAlertStatus (UUID petId, AlertStatus alertStatus);
-
-    List<Alert> findAlertPerTime (LocalDateTime start, LocalDateTime end);
-
-    long countByAlertStatus (AlertStatus alertStatus);
-
-    List<Alert> findAlertasByTutorId (UUID tutorId);
-
-    List<Alert> findPendingAlertByPetId (UUID petId);
-
-    long countPendingAlert();
-
-    List<Alert> findAllAtivos();
-
 }
